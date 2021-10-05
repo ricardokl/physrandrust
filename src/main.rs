@@ -1,9 +1,11 @@
 use rand::{Rng, thread_rng};
-use std::fs;
+use rand::seq::IteratorRandom;
+use std::{fs, io, option::Option, result::Result};
 
 fn main() {
     mru();
-    template();
+    let ex = template(".");
+    println!("{:?}", ex)
 }
 
 fn mru() -> [f32; 6] {
@@ -17,10 +19,9 @@ fn mru() -> [f32; 6] {
     return [vm, xi, ti, dt, tf, dx]
 }
 
-fn template() {
-    let files: Vec<_> = fs::read_dir("./..").unwrap().collect();
-    println!("{:?}", files)
-    // for file in files {
-    //     println!("file: {:?}",file.unwrap().path());
-    // }
+fn template(dir: &str) -> Result<Option<fs::DirEntry>, io::Error> {
+    let mut rng = thread_rng();
+    let files: fs::ReadDir = fs::read_dir(dir)?;
+    let file = files.choose(&mut rng);
+    return file.transpose()
 }
