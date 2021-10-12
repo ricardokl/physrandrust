@@ -3,10 +3,11 @@ use rand::seq::IteratorRandom;
 use std::{fs, io, result::Result, path::Path};
 
 fn main() {
-    mru();
+    let mru: [f32; 6] = mru();
     let dir = Path::new("/home/ricardo/Documents/projetos/physrandrust/src/templates/");
-    let ex = template(dir).unwrap();
-    println!("{:?}", ex)
+    let ex = template(dir).unwrap().replace("{x1}",&mru[1].to_string());
+    println!("{:?}", ex);
+    println!("{:?}", mru)
 }
 
 fn mru() -> [f32; 6] {
