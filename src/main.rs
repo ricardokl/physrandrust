@@ -1,10 +1,11 @@
 use rand::{Rng, thread_rng};
 use rand::seq::IteratorRandom;
-use std::{fs, io, option::Option, result::Result};
+use std::{fs, io, result::Result, path::Path};
 
 fn main() {
     mru();
-    let ex = template(".");
+    let dir = Path::new("/home/ricardo/Documents/projetos/physrandrust/src/templates/");
+    let ex = template(dir).unwrap();
     println!("{:?}", ex)
 }
 
@@ -19,9 +20,10 @@ fn mru() -> [f32; 6] {
     return [vm, xi, ti, dt, tf, dx]
 }
 
-fn template(dir: &str) -> Result<Option<fs::DirEntry>, io::Error> {
+fn template(dir: &Path) -> Result<String, io::Error> {
     let mut rng = thread_rng();
-    let files: fs::ReadDir = fs::read_dir(dir)?;
-    let file = files.choose(&mut rng);
-    return file.transpose()
+    let files: fs::ReadDir = fs::read_dir(dir).unwrap();
+    let file = files.choose(&mut rng).unwrap().unwrap();
+    let text = fs::read_to_string(file.path());
+    return text
 }
