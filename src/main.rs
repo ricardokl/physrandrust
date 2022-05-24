@@ -11,7 +11,7 @@ use std::path::Path;
 
 fn main() {
     let dir = Path::new("/home/ricardo/Documents/projetos/physrandrust/src/templates/");
-    let out = Path::new("/home/ricardo/Documents/projetos/physrandrust/teste.txt");
+    // let out = Path::new("/home/ricardo/Documents/projetos/physrandrust/teste.txt");
     // let dir2 = Path::new("/home/invalid");
     rand_values_only(2,3,dir, out);
 }
