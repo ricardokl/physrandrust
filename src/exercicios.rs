@@ -35,6 +35,51 @@ pub struct ExMru {
     v : f32
 }
 
+pub struct ExEnergia {
+    // Exercicio de energia, com um valor inicial e um valor final
+    // Para apenas uma particula
+    text: String,
+    mi: f32,
+    mf: f32,
+    vi: f32,
+    vf: f32,
+    yi: f32,
+    yf: f32,
+    xi: f32,
+    xf: f32,
+    k: f32
+}
+
+// Falta escolher uma variavel para ser dependente
+// Todas as escolhas levarao a uma variavel definida por uma divisao
+impl ExEnergia {
+    pub fn new(dir: &Path, mmax: i32, vmax: i32, ymax: i32, xmax: i32, kmax: i32) -> ExEnergia {
+        let text = template(dir).unwrap();
+        let mut rng = thread_rng();
+        let mi: f32 = rng.gen_range(1..mmax) as f32;
+        let mf: f32 = rng.gen_range(1..mmax) as f32;
+        let vi: f32 = rng.gen_range(1..vmax) as f32;
+        let vf: f32 = rng.gen_range(1..vmax) as f32;
+        let yi: f32 = rng.gen_range(1..ymax) as f32;
+        let yf: f32 = rng.gen_range(1..ymax) as f32;
+        let xi: f32 = rng.gen_range(1..xmax) as f32;
+        let xf: f32 = rng.gen_range(1..xmax) as f32;
+        let k: f32  = rng.gen_range(1..kmax) as f32;
+        return ExEnergia {
+            text,
+            mi,
+            mf,
+            vi,
+            vf,
+            yi,
+            yf,
+            xi,
+            xf,
+            k
+        }
+    }
+}
+
 impl ExMru {
     // Creating a Exercice object, with the text and the
     // variables to be replaced
